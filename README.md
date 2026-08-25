@@ -8,16 +8,22 @@ A presentation-ready local prototype for AI-assisted patient case taking. It is 
 - Guided symptom and health-history intake
 - Transparent rule-based red-flag alerting
 - A selected upload plus a prepared demo extraction (OCR deliberately deferred to final MVP)
-- Local Ollama summary generation using `qwen3:1.7b-q4_K_M`
-- Safe browser-side template fallback when Ollama is unavailable
-- A doctor review screen where all summary text is editable
+- Express.js backend with a JSON-backed prototype data store
+- Cloud Gemini summary generation using `gemini-3.5-flash-lite`
+- Available-doctor selection during patient intake
+- Doctor sign-in, application review, approval, and doctor-assigned appointment slots
+- Patient status page and downloadable appointment-confirmation PDF
 
 ## Requirements
 
 - Node.js 18 or newer (Node 24 works)
-- Optional for AI mode: [Ollama for Windows](https://ollama.com/download/windows)
+- A Gemini API key in `.env` (for example, `GEMINI_API_KEY=...`)
 
-No `npm install` is needed. The project uses only the Node.js standard library and browser JavaScript.
+Install the Express dependency once:
+
+```powershell
+npm install
+```
 
 ## Start the prototype
 
@@ -29,40 +35,26 @@ npm start
 
 Then open `http://localhost:3000` in a browser.
 
-## Connect Ollama
+## Connect Gemini
 
-1. Install and start Ollama.
-2. Pull the model you selected:
+Add your API key to `.env`:
 
-```powershell
-ollama pull qwen3:1.7b-q4_K_M
+```text
+GEMINI_API_KEY=your_key_here
+GEMINI_MODEL=gemini-3.5-flash-lite
 ```
 
-3. Confirm the model appears:
+The Express server checks Gemini at startup and retries every five seconds. Until Gemini is ready, the clinical API refuses to save applications. Test the key separately with `npm run test:gemini`.
 
-```powershell
-ollama list
-```
+## Demo accounts and upload file
 
-4. Keep Ollama running, start this app with `npm start`, and open the prototype.
+`db-data.json` contains the prototype doctors and plain-text demo credentials. Use one of these accounts in the Doctor portal:
 
-The app automatically checks `http://127.0.0.1:11434`. On the final **Generate & send to doctor** action, it sends only the demo intake data to your local Ollama server.
+- `meera.shah@medikiosk.demo` / `MediKiosk@123`
+- `arjun.nair@medikiosk.demo` / `MediKiosk@123`
+- `kavita.singh@medikiosk.demo` / `MediKiosk@123`
 
-The first model response can take longer while Ollama loads the model into memory. The prototype waits up to 90 seconds, then switches to its presentation-safe template fallback. If needed, use a shorter or longer timeout when starting the app:
-
-```powershell
-$env:OLLAMA_TIMEOUT_MS = "120000"
-npm start
-```
-
-If you have the model under a different name, start the app with that name:
-
-```powershell
-$env:OLLAMA_MODEL = "your-model-name"
-npm start
-```
-
-If Ollama is stopped, the prototype still completes the flow with a clearly labelled, deterministic template summary. This is useful for an offline presentation backup.
+Upload [demo-upload-report.pdf](D:/code_hobby/02_Projects/MediKiosk-prototype/demo-upload-report.pdf) in the previous-record step for the presentation. Doctors assign the appointment date and time only after they approve an application; the patient can then refresh the status page and download the generated confirmation PDF.
 
 ## Presentation demo path
 

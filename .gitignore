@@ -1,0 +1,5 @@
+node_modules/
+demo-upload-report-preview.png
+.env
+test_api.js
+Tasks.txt

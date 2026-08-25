@@ -1,0 +1,42 @@
+{
+  "doctors": [
+    {
+      "id": "dr-meera-shah",
+      "name": "Dr. Meera Shah",
+      "specialty": "General Medicine",
+      "clinic": "OPD Block A, Room 12",
+      "languages": [
+        "English",
+        "Hindi"
+      ],
+      "email": "meera.shah@medikiosk.demo",
+      "password": "MediKiosk@123"
+    },
+    {
+      "id": "dr-arjun-nair",
+      "name": "Dr. Arjun Nair",
+      "specialty": "Internal Medicine",
+      "clinic": "OPD Block B, Room 6",
+      "languages": [
+        "English",
+        "Hindi",
+        "Malayalam"
+      ],
+      "email": "arjun.nair@medikiosk.demo",
+      "password": "MediKiosk@123"
+    },
+    {
+      "id": "dr-kavita-singh",
+      "name": "Dr. Kavita Singh",
+      "specialty": "Family Medicine",
+      "clinic": "OPD Block A, Room 8",
+      "languages": [
+        "English",
+        "Hindi"
+      ],
+      "email": "kavita.singh@medikiosk.demo",
+      "password": "MediKiosk@123"
+    }
+  ],
+  "applications": []
+}
