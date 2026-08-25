@@ -75,12 +75,12 @@ const api = async (url, opt = {}) => {
 };
 function shell(body) {
   document.documentElement.lang = S.lang === "हिंदी" ? "hi" : "en";
-  app.innerHTML = `<main class="shell"><header class="topbar"><button class="brand brand-button" id="home" aria-label="MediKiosk home"><span class="logo" aria-hidden="true">+</span>MediKiosk</button><button class="text-link" id="portal">${tx("Doctor portal", "portal")}</button></header>${body}</main>`;
-  home.onclick = () => {
+  document.querySelector("#app").innerHTML = `<main class="shell"><header class="topbar"><button class="brand brand-button" id="home" aria-label="MediKiosk home"><span class="logo" aria-hidden="true">+</span>MediKiosk</button><button class="text-link" id="portal">${tx("Doctor portal", "portal")}</button></header>${body}</main>`;
+  document.querySelector("#home").onclick = () => {
     S.view = "welcome";
     render();
   };
-  portal.onclick = () => {
+  document.querySelector("#portal").onclick = () => {
     S.view = "login";
     render();
   };
@@ -143,7 +143,7 @@ function welcome() {
         welcome();
       }),
   );
-  primaryAction.onclick = async () => {
+  document.querySelector("#primaryAction").onclick = async () => {
     if (hasApplication) {
       S.view = "status";
       return render();
@@ -152,7 +152,7 @@ function welcome() {
     S.view = "intake";
     render();
   };
-  newApplication?.addEventListener("click", () => {
+  document.querySelector("#newApplication")?.addEventListener("click", () => {
     S.app = null;
     localStorage.removeItem("medikiosk-application");
     S.step = 0;

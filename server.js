@@ -42,9 +42,24 @@ const GEMINI_API_KEY =
 const GEMINI_MODEL =
   process.env.GEMINI_MODEL || env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
+const PUBLIC_DIR = path.join(__dirname, "public");
+
 app.use(express.json({ limit: "1mb" }));
 app.use(
-  express.static(path.join(__dirname, "public"), { extensions: ["html"] }),
+  express.static(PUBLIC_DIR, {
+    extensions: ["html"],
+    setHeaders(response, filePath) {
+      const extension = path.extname(filePath);
+      const contentTypes = {
+        ".css": "text/css; charset=utf-8",
+        ".js": "text/javascript; charset=utf-8",
+        ".html": "text/html; charset=utf-8",
+      };
+
+      if (contentTypes[extension]) response.type(contentTypes[extension]);
+      response.setHeader("Cache-Control", "no-store, max-age=0");
+    },
+  }),
 );
 const loadDb = () => JSON.parse(fs.readFileSync(DB_PATH, "utf8"));
 const saveDb = (db) =>
