@@ -1,0 +1,9 @@
+{
+  "name": "medikiosk-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hackathon prototype for AI-assisted patient case taking.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
